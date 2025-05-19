@@ -17,10 +17,22 @@ def get_main_keyboard():
 # English: Start command handler
 # Russian: Обработчик команды старт
 def start(update: Update, context: CallbackContext) -> int:
+    # English: Clear any existing user data
+    # Russian: Очистка существующих данных пользователя
     context.user_data.clear()
     
+    # English: Get user's first name for personal greeting
+    # Russian: Получение имени пользователя для персонального приветствия
+    user_name = update.effective_user.first_name
+    
+    # English: Send welcome message
+    # Russian: Отправка приветственного сообщения
     update.message.reply_text(
-        Config.MESSAGES['welcome'],
+        f"👋 Привет, {user_name}!\n\n"
+        "Я бот-помощник. Чем могу помочь?\n\n"
+        "• Нажмите 'Чат первокурсников' для доступа к чату\n"
+        "• Нажмите 'Помощь ментора' для связи с ментором\n"
+        "• В любой момент можете нажать /start для возврата в главное меню",
         reply_markup=get_main_keyboard(),
         parse_mode=ParseMode.HTML
     )
